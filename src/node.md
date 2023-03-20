@@ -1,2 +1,14 @@
 - createModel:
-  xác định cấu trúc trạng thái của máy trạng thái và các sự kiện riêng biệt với hành vi của máy trạng thái => giúp quản lý và suy luận về máy trạng thái => dễ dàng hơn, đặc biệt nếu bạn có một số lượng lớn trạng thái hoặc sự kiện.
+  - createModel thường được sử dụng kết hợp với createMachine để tạo một state machine hoàn chỉnh.
+  - xác định cấu trúc trạng thái của máy trạng thái và các sự kiện riêng biệt với hành vi của máy trạng thái => giúp quản lý và suy luận về máy trạng thái => dễ dàng hơn, đặc biệt nếu bạn có một số lượng lớn trạng thái hoặc sự kiện.
+  - nếu chúng ta muốn thay đổi cấu trúc của trạng thái, chúng ta chỉ cần sửa đổi mô hình và bộ máy trạng thái sẽ tự động cập nhật để phản ánh những thay đổi đó. Tương tự, nếu chúng ta muốn thêm các sự kiện mới vào máy trạng thái, chúng ta chỉ cần sửa đổi mô hình và cập nhật máy trạng thái cho phù hợp.
+  - sự khác nhau giữa state machine thông thường và state machine hoàn tất
+  - context: khả năng tách biệt trạng thái khỏi hành vi hoặc dễ dàng kiểm tra và gỡ lỗi máy. Trong các máy trạng thái phức tạp hơn, thường cần sử dụng một đối tượng bối cảnh để quản lý dữ liệu và hành vi bên trong máy.
+  - vd: Tuy nhiên, trong các máy trạng thái phức tạp hơn, có thể có dữ liệu cần được lưu trữ và truy cập bằng các hành động hoặc bộ bảo vệ dành riêng cho một trạng thái hoặc quá trình chuyển đổi cụ thể. Ví dụ: hãy xem xét một máy trạng thái mô hình hóa quy trình xác thực người dùng. Trong trường hợp này, đối tượng ngữ cảnh có thể lưu trữ dữ liệu như địa chỉ email, mật khẩu và trạng thái xác thực của người dùng, những dữ liệu này cần được truy cập và cập nhật bởi các hành động và bộ bảo vệ ở các giai đoạn khác nhau của quy trình xác thực.
+- context:
+  - là một cách để lưu trữ dữ liệu dành riêng cho trạng thái hiện tại hoặc quá trình chuyển đổi của máy trạng thái. Nó là một cơ chế để chia sẻ dữ liệu giữa các hành động, bảo vệ và các bộ phận khác của máy trạng thái. Bối cảnh trong XState là cục bộ của máy trạng thái và không được chia sẻ trên nhiều máy trạng thái.
+  - Mặc dù có một số điểm tương đồng giữa hai khái niệm, nhưng chúng phục vụ các mục đích khác nhau và được sử dụng theo những cách khác nhau. Trong React, bối cảnh được sử dụng để chia sẻ dữ liệu giữa các thành phần, trong khi ở XState, bối cảnh được sử dụng để lưu trữ dữ liệu cụ thể cho máy trạng thái.
+  - Sử dụng thư viện quản lý trạng thái như Redux hoặc XState có thể giúp đơn giản hóa việc quản lý trạng thái cho ứng dụng khi nó phát triển. Các thư viện này cung cấp một vị trí tập trung để quản lý trạng thái của ứng dụng, điều này có thể giúp dễ dàng suy luận và duy trì khi các tính năng mới được thêm vào. Ngoài ra, chúng có thể mang lại lợi ích về hiệu suất bằng cách tối ưu hóa cách xử lý các bản cập nhật trạng thái và giảm các lần kết xuất lại không cần thiết.
+  - spawn: dùng để tạo một actor mới
+  - assign: dùng để update state machine
+  - withContext tạo một phiên bản mới của đối tượng ngữ cảnh thay vì thay đổi đối tượng hiện có

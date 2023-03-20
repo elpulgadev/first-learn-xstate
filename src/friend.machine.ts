@@ -1,56 +1,55 @@
-import { assign } from 'xstate';
-import { createModel } from 'xstate/lib/model';
+import { createModel } from "xstate/lib/model";
 
 const friendModel = createModel(
   {
-    prevName: '',
-    name: ''
+    prevName: "",
+    name: "",
   },
   {
     events: {
       SET_NAME: (value: string) => ({ value }),
       SAVE: () => ({}),
       EDIT: () => ({}),
-      CANCEL: () => ({})
-    }
+      CANCEL: () => ({}),
+    },
   }
 );
 
 export const friendMachine = friendModel.createMachine({
-  initial: 'reading',
+  initial: "reading",
   states: {
     reading: {
-      tags: 'read',
+      tags: "read",
       on: {
-        EDIT: 'editing'
-      }
+        EDIT: "editing",
+      },
     },
     editing: {
-      tags: 'form',
+      tags: "form",
       on: {
         SET_NAME: {
-          actions: friendModel.assign({ name: (_, event) => event.value })
+          actions: friendModel.assign({ name: (_, event) => event.value }),
         },
         SAVE: {
-          target: 'saving'
-        }
-      }
+          target: "saving",
+        },
+      },
     },
     saving: {
-      tags: ['form', 'saving'],
+      tags: ["form", "saving"],
       after: {
         // Simulate network request
         1000: {
-          target: 'reading',
-          actions: friendModel.assign({ prevName: (context) => context.name })
-        }
-      }
-    }
+          target: "reading",
+          actions: friendModel.assign({ prevName: (context) => context.name }),
+        },
+      },
+    },
   },
   on: {
     CANCEL: {
       actions: friendModel.assign({ name: (context) => context.prevName }),
-      target: '.reading'
-    }
-  }
+      target: ".reading",
+    },
+  },
 });

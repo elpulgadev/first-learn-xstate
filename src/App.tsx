@@ -27,6 +27,7 @@ function App() {
         className="newFriend"
         onSubmit={(event) => {
           event.preventDefault();
+
           send({
             type: "FRIENDS.ADD",
             name: state.context.newFriendName,
